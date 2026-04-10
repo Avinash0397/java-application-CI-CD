@@ -99,19 +99,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4  
       - name: SonarQube Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        with:
-          projectBaseDir: '.'
-          args: >
-            -Dsonar.projectKey=your_project_key
-            -Dsonar.organization=your_organization
-            -Dsonar.sources=.
-            -Dsonar.exclusions=node_modules/**,dist/**,build/**
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} 
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}           
-          env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }} 
+        run: |
+          mvn clean verify sonar:sonar \
+          -Dsonar.host.url=http://54.176.130.119:9000 \
+          -Dsonar.token=${{ secrets.SONAR_TOKEN }}         
+            env:
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
+            SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }} 
 
 
       - name: Log in to Docker Hub
