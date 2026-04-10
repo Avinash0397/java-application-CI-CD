@@ -101,12 +101,10 @@ jobs:
       - name: SonarQube Scan
         run: |
           mvn clean verify sonar:sonar \
+          -DskipTests \
+          -Dsonar.projectKey=votezy \
           -Dsonar.host.url=http://54.176.130.119:9000 \
-          -Dsonar.token=${{ secrets.SONAR_TOKEN }}         
-            env:
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
-            SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }} 
-
+          -Dsonar.token=${{ secrets.SONAR_TOKEN }}
 
       - name: Log in to Docker Hub
         env:
