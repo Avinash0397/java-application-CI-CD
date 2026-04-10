@@ -75,7 +75,7 @@ jobs:
       - name: Gitleaks Setup
         uses: gitleaks/gitleaks-action@v2
       - name: Run Gitleaks Scan
-        run: gitleaks detect --source ./client --report-path gitleaks-report.json
+        run: gitleaks detect --source . --report-path gitleaks-report.json
   
   Trivy-scan:
       runs-on: ubuntu-latest
