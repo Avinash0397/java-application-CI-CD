@@ -28,7 +28,7 @@ jobs:
 
     - name: Verify War File
       run: |
-        echo"listening war files"
+        echo "listening war files"
         find . -name "*.war" || echo "No war file found"
 
     - name: Upload war files via SCP
