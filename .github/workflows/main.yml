@@ -43,11 +43,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }} 
         script: |
           echo "Stopping old app"
-          pkill -f java || true
-        
-          echo "Starting new app"
-          nohup java -jar /tmp/*.jar > app.log 2>&1 &
-        
+          nohup java -jar /tmp/*.jar > app.log 2>&1 &        
           echo "Deployment successful"
 
   publish-job:
