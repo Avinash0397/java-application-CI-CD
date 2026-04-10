@@ -101,7 +101,7 @@ jobs:
       - name: SonarQube Scan
         uses: sonarsource/sonarcloud-github-action@master
         with:
-          projectBaseDir: './client'
+          projectBaseDir: '.'
           args: >
             -Dsonar.projectKey=your_project_key
             -Dsonar.organization=your_organization
