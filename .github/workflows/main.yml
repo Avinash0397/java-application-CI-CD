@@ -34,12 +34,22 @@ jobs:
     - name: Upload war files via SCP
       uses: appleboy/scp-action@v0.1.7
       with:
-        host:
-        username:
-        key:
-        source:
-        target:
-
+        host: ${{ secrets.TOMCAT_HOST }} 
+        username: ${{ secrets.TOMCAT_USER }} 
+        key: ${{ secrets.SSH_PRIVATE_KEY }} 
+        source: "target/*.war"
+        target: "/tmp/"
+    - name: Move war file to tomcat webapps and restart
+      uses: appleboy/ssh-action@v1.1.0
+      with:
+        host: ${{ secrets.TOMCAT_HOST }} 
+        username: ${{ secrets.TOMCAT_USER }} 
+        key: ${{ secrets.SSH_PRIVATE_KEY }} 
+        script: |
+          echo "Moving war to tomcat webapps"
+          sudo mv /tmp/target/*.war /opt/tomcat/webapps/
+          echo "restarting Tomcat"
+          sudo systemctl restart tomcat
    
   publish-job:
     runs-on: ubuntu-latest
