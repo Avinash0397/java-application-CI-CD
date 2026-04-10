@@ -29,7 +29,7 @@ jobs:
     - name: Verify War File
       run: |
         echo "listening war files"
-        find . -name "*.war" || echo "No war file found"
+        find . -name "*.jar" || echo "No war file found"
 
     - name: Upload war files via SCP
       uses: appleboy/scp-action@v0.1.7
@@ -37,7 +37,7 @@ jobs:
         host: ${{ secrets.TOMCAT_HOST }} 
         username: ${{ secrets.TOMCAT_USER }} 
         key: ${{ secrets.SSH_PRIVATE_KEY }} 
-        source: "target/*.war"
+        source: "target/*.jar"
         target: "/tmp/"
     - name: Move war file to tomcat webapps and restart
       uses: appleboy/ssh-action@v1.1.0
@@ -47,7 +47,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }} 
         script: |
           echo "Moving war to tomcat webapps"
-          sudo mv /tmp/target/*.war /opt/tomcat/webapps/
+          sudo mv /tmp/target/*.jar /opt/tomcat/webapps/
           echo "restarting Tomcat"
           sudo systemctl restart tomcat
    
